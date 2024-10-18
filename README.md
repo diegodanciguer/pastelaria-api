@@ -1,66 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# API Restful - Pastelaria
 
-## About Laravel
+## Sobre o Projeto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Esta API Restful foi desenvolvida para gerenciar as operações de Clientes, Produtos e Pedidos de uma pastelaria. O sistema suporta operações completas de CRUDL (Criar, Ler, Atualizar, Deletar e Listar) e inclui funcionalidades como envio de e-mails de confirmação de pedido e soft delete. Além disso, a API foi construída usando as melhores práticas do Laravel 11, com validação de dados, testes unitários e integração com Docker para facilitar o desenvolvimento e o deploy.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Clientes: Gerenciamento de informações de clientes, incluindo nome, e-mail, telefone, endereço completo e data de cadastro.
+- Produtos: Gerenciamento de produtos com nome, preço e foto obrigatória.
+- Pedidos: Criação de pedidos com a possibilidade de associar vários produtos a um cliente e envio de e-mail com os detalhes do pedido.
+- Soft Delete: Implementado para os clientes, produtos e pedidos, permitindo restauração de registros deletados.
 
-## Learning Laravel
+## Tecnologias Utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP: 8.2
+- Laravel: 11
+- Docker: Para gerenciamento de contêineres.
+- MySQL: Banco de dados relacional utilizado para armazenar os dados.
+- Mail: Para envio de e-mails de confirmação dos pedidos.
+- Composer: Gerenciador de dependências do PHP.
+- PHPUnit: Para execução de testes unitários.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Requisitos
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP: 8.2 ou superior
+- Docker: Certifique-se de ter o Docker instalado e em execução na sua máquina.
+- Composer: Para gerenciar as dependências da aplicação.
 
-## Laravel Sponsors
+## Como Rodar a Aplicação
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Siga as instruções abaixo para configurar e executar a aplicação localmente:
 
-### Premium Partners
+### 1. Clonar o Repositório
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+git clone https://github.com/diegodanciguer/pastelaria-api
+cd pastelaria-api
+```
 
-## Contributing
+### 2. Configurar o Arquivo `.env`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Copie o arquivo .env.example e renomeie para .env. Ajuste as variáveis de ambiente conforme necessário, incluindo as configurações de banco de dados e envio de e-mail.
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Build da Aplicação com Docker
 
-## Security Vulnerabilities
+Construa os contêineres necessários para rodar a aplicação:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+docker-compose build
+```
 
-## License
+### 4. Iniciar os Contêineres
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Inicie a aplicação com os contêineres do Docker:
+
+```bash
+docker-compose up -d
+```
+
+### 5. Instalar Dependências com Composer
+
+Dentro do contêiner da aplicação, instale as dependências:
+
+```bash
+docker-compose exec app composer install
+```
+
+### 6. Executar Migrations e Seeders
+
+Crie as tabelas no banco de dados e, se necessário, popule o banco de dados com dados iniciais:
+
+```bash
+docker-compose exec app php artisan migrate
+docker-compose exec app php artisan db:seed
+```
+
+### 7. Rodar os Testes Unitários
+
+Garanta que a aplicação está funcionando corretamente executando os testes:
+
+```bash
+docker-compose exec app php artisan test
+```
+
+## Endpoints da API
+
+### Clientes
+
+| Método | Endpoint                      | Descrição                                   |
+| ------- | ----------------------------- | --------------------------------------------- |
+| GET     | `/api/clients`              | Listar todos os clientes.                     |
+| POST    | `/api/clients`              | Criar um novo cliente.                        |
+| GET     | `/api/clients/{id}`         | Exibir os detalhes de um cliente específico. |
+| PUT     | `/api/clients/{id}`         | Atualizar os dados de um cliente.             |
+| DELETE  | `/api/clients/{id}`         | Deletar um cliente (soft delete).             |
+| POST    | `/api/clients/{id}/restore` | Restaurar um cliente deletado.                |
+
+### Produtos
+
+| Método | Endpoint                       | Descrição                                   |
+| ------- | ------------------------------ | --------------------------------------------- |
+| GET     | `/api/products`              | Listar todos os produtos.                     |
+| POST    | `/api/products`              | Criar um novo produto.                        |
+| GET     | `/api/products/{id}`         | Exibir os detalhes de um produto específico. |
+| PUT     | `/api/products/{id}`         | Atualizar os dados de um produto.             |
+| DELETE  | `/api/products/{id}`         | Deletar um produto (soft delete).             |
+| POST    | `/api/products/{id}/restore` | Restaurar um produto deletado.                |
+
+### Pedidos
+
+| Método | Endpoint                     | Descrição                                        |
+| ------- | ---------------------------- | -------------------------------------------------- |
+| GET     | `/api/orders`              | Listar todos os pedidos.                           |
+| POST    | `/api/orders`              | Criar um novo pedido para um cliente com produtos. |
+| GET     | `/api/orders/{id}`         | Exibir os detalhes de um pedido específico.       |
+| PUT     | `/api/orders/{id}`         | Atualizar um pedido.                               |
+| DELETE  | `/api/orders/{id}`         | Deletar um pedido (soft delete).                   |
+| POST    | `/api/orders/{id}/restore` | Restaurar um pedido deletado.                      |
+
+### Observações
+
+* Após a criação de um pedido, um e-mail de confirmação será enviado ao cliente com os detalhes do pedido.
+* Utilize as rotas conforme descrito para operações CRUD nos módulos de Clientes, Produtos e Pedidos.
+
+## Considerações Finais
+
+Este projeto foi desenvolvido com o objetivo de criar uma API simples e eficiente para gerenciar uma pastelaria. Com uso de Docker, Laravel e práticas de testes, o sistema oferece robustez e facilidade para desenvolvimento e deploy.
+
+## Autor
+
+- [@diegodanciguer](https://www.github.com/diegodanciguer)
