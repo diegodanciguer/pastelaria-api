@@ -70,7 +70,6 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Deletes the old image if it exists
             if ($product->image && Storage::disk('public')->exists($product->image)) {
                 Storage::disk('public')->delete($product->image);
             }

@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Order; // Ensure to import the Order model
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -14,7 +14,7 @@ class OrderCreatedMail extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public $order; // Public property to access the order in the view
+    public $order; 
 
     /**
      * Create a new message instance.
@@ -49,7 +49,7 @@ class OrderCreatedMail extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int,
      */
     public function attachments(): array
     {

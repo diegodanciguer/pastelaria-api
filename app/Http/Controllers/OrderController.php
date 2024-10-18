@@ -40,10 +40,8 @@ class OrderController extends Controller
             $order->products()->attach($product['id'], ['quantity' => $product['quantity']]);
         }
 
-        // Load relationships for the email
         $order->load('products', 'client');
 
-        // Send email to the client
         Mail::to($order->client->email)->send(new OrderCreatedMail($order));
 
         return response()->json($order->load('products'), 201);
@@ -87,7 +85,6 @@ class OrderController extends Controller
         }
 
         if (isset($validatedData['products'])) {
-            // Sync products and quantities
             $syncData = [];
             foreach ($validatedData['products'] as $product) {
                 $syncData[$product['id']] = ['quantity' => $product['quantity']];
@@ -95,7 +92,6 @@ class OrderController extends Controller
             $order->products()->sync($syncData);
         }
 
-        // Load relationships for the response
         $order->load('products', 'client');
 
         return response()->json($order, 200);
