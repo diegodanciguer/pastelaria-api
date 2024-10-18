@@ -21,14 +21,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copiar composer.json e composer.lock
-COPY composer.json composer.lock ./
-
-# Instalar dependências do Composer
-RUN composer install --optimize-autoloader --no-dev
-
 # Copiar o restante do código
 COPY . .
+
+# Instalar dependências do Composer com permissões de superusuário
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --optimize-autoloader --no-dev
 
 # Definir permissões
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
